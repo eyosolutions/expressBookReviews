@@ -5,33 +5,20 @@ let users = require("./auth_users.js").users;
 const public_users = express.Router();
 const arrayOfISBN = Object.keys(books);
 
-// Define functions
-const doesExist = (username)=>{
-    let userswithsamename = users.filter((user)=>{
-      return user.username === username
-    });
-    if(userswithsamename.length > 0){
-      return true;
-    } else {
-      return false;
-    }
-  }
-// End of functions
-
 public_users.post("/register", (req,res) => {
   //Write your code here
   const username = req.body.username;
   const password = req.body.password;
 
   if (username && password) {
-    if (!doesExist(username)) { 
+    if (!isValid(username)) { 
       users.push({"username":username,"password":password});
       return res.status(200).json({message: "User successfully registred. Now you can login"});
     } else {
       return res.status(404).json({message: "User already exists!"});    
     }
   } 
-  return res.status(404).json({message: "Unable to register user."});
+  return res.status(404).json({message: "Unable to register user. Please provide username and password"});
 });
 
 // Get the book list available in the shop
