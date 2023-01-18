@@ -30,7 +30,17 @@ public_users.get('/isbn/:isbn',function (req, res) {
 public_users.get('/author/:author',function (req, res) {
   //Write your code here
   const author = req.params.author;
-  return res.status(300).json({message: "Yet to be implemented"});
+  const isbnArray = Object.keys(books);
+  let booksByAuthor = [];
+  for (let k of isbnArray){
+      if (books[k]['author'] === author) {
+          booksByAuthor.push(books[k]);
+      }
+  }
+  if (booksByAuthor.length > 0){
+      return res.send(booksByAuthor);
+  }
+  return res.status(300).json({message: `Book by author ${author} not found`});
 });
 
 // Get all books based on title
