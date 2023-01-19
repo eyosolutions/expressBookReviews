@@ -65,13 +65,15 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
   const book = books[isbn];
   const user = req.session.authorization['username'];
 
-  for (let k in book) {
-      if (k == "reviews") {
-          //books[isbn][k] = {`${user}`: review};
-      }
+  if (Object.keys(book).length > 0) {
+    for (let k in book) {
+        if (k == "reviews") {
+            books[isbn][k][`${user}`] = review;
+        }
+    }
+    return res.send(books[isbn]);
   }
-  
-  return res.send(book[isbn]);
+  return res.status(300).json({message: `Book with ISBN \'${isbn}\' not found.`});
 });
 
 module.exports.authenticated = regd_users;
