@@ -24,7 +24,7 @@ public_users.post("/register", (req,res) => {
 // Get the book list available in the shop
 public_users.get('/',function (req, res) {
   //Write your code here
-  return res.send(JSON.stringify({books},null,4));
+  return res.send(JSON.stringify(books,null,4));
 });
 
 // Get book details based on ISBN
@@ -34,7 +34,7 @@ public_users.get('/isbn/:isbn',function (req, res) {
   if (isbn <= arrayOfISBN.length && isbn > 0) {
     return res.send(books[isbn]);
   }
-  return res.status(300).json({message: `Book with ISBN \"${isbn}\" not found.`});
+  return res.status(300).json({message: `Book with ISBN \'${isbn}\' not found.`});
  });
   
 // Get book details based on author
@@ -53,7 +53,7 @@ public_users.get('/author/:author',function (req, res) {
       //const booksByAuthorObject = Object.assign({}, booksByAuthor);
       return res.send(booksByAuthor);
   }
-  return res.status(300).json({message: `Book by author \"${author}\" not found`});
+  return res.status(300).json({message: `Book by author \'${author}\' not found`});
 });
 
 // Get all books based on title
@@ -72,7 +72,7 @@ public_users.get('/title/:title',function (req, res) {
       //const booksByTitleObject = Object.assign({}, booksByTitle);
       return res.send(booksByTitle);
   }
-  return res.status(300).json({message: `Book by title \"${title}\" not found`});
+  return res.status(300).json({message: `Book by title \'${title}\' not found`});
 });
 
 //  Get book review
@@ -82,7 +82,7 @@ public_users.get('/review/:isbn',function (req, res) {
   if (isbn <= arrayOfISBN.length && isbn > 0) {
     return res.send(books[isbn]['reviews']);
   }
-  return res.status(300).json({message: `Book with ISBN \"${isbn}\" not found.`});
+  return res.status(300).json({message: `Book with ISBN \'${isbn}\' not found.`});
 });
 
 module.exports.general = public_users;
