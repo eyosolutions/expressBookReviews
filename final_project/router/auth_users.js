@@ -65,10 +65,12 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
   const book = books[isbn];
   const user = req.session.authorization['username'];
 
-  if (Object.keys(book).length > 0) {
-    for (let k in book) {
-        if (k == "reviews") {
-            books[isbn][k][`${user}`] = review;
+  if (typeof book != "undefined") {
+    if (review) {
+        for (let k in book) {
+            if (k == "reviews") {
+                books[isbn][k][`${user}`] = review;
+            }
         }
     }
     return res.send(books[isbn]);
