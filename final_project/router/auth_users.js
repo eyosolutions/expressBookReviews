@@ -67,10 +67,11 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
 
   for (let k in book) {
       if (k == "reviews") {
-          books[isbn][k] = {user: review};
+          //books[isbn][k] = {`${user}`: review};
       }
   }
-  return res.send(books[isbn]);
+  
+  return res.send(book[isbn]);
 });
 
 module.exports.authenticated = regd_users;
